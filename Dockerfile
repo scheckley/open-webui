@@ -40,6 +40,7 @@ WORKDIR /app/backend
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git curl jq git build-essential pandoc ffmpeg libavcodec-extra gcc netcat-openbsd libsm6 libxext6 && \
     curl -sSL https://get.docker.com/ | sh && \
+    service docker start && \
     groupadd -g 1000 appuser && \
     useradd -m -u 1000 -g appuser appuser && \
     mkdir -p /app/backend/data /app/backend/cache && \
