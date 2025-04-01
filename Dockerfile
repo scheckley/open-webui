@@ -46,8 +46,6 @@ RUN apt-get update && \
     mkdir -p /app/backend/data /app/backend/cache && \
     chown -R appuser:appuser /app
 
-USER appuser
-
 # Install Python dependencies
 COPY --chown=appuser:appuser ./backend/requirements.txt ./requirements.txt
 RUN pip3 install --user --no-cache-dir -r requirements.txt
@@ -61,6 +59,8 @@ COPY --chown=appuser:appuser --from=build /app/package.json /app/package.json
 COPY --chown=appuser:appuser ./backend ./
 
 EXPOSE 8080
+
+USER appuser
 
 HEALTHCHECK CMD curl --silent --fail http://localhost:${PORT:-8080}/health | jq -ne 'input.status == true' || exit 1
 
